@@ -1,0 +1,10 @@
+$ uname --all
+
+(-s) Kernel name:       Linux
+(-n) Username:          alvaroPC
+(-r) Kernel release:    5.4.0-56-generic
+(-v) Kernel version:    #62-Ubuntu SMP Mon Nov 23 19:20:19 UTC 2020
+(-m) Machine:           x86_64
+(-p) Processor:         x86_64
+(-i) Hardware platform: x86_64
+(-o) Operating-system:  GNU/Linux
