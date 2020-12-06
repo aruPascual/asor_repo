@@ -10,7 +10,8 @@ En esta práctica estudiaremos el uso básico del API de un sistema UNIX y su en
     + Ejercicio 1 , Ejercicio 2 (1/12).
     + Ejercicio 3 (2/12).
 + Información del sistema
-    + Ejercicio 4 , Ejercicio 5, Ejercicio 6 y Ejercicio 7 (2/12).
+    + Ejercicio 4 , Ejercicio 5 , Ejercicio 6 y Ejercicio 7 (2/12).
 + Información del usuario
     + Ejercicio 8 , Ejercicio 9 y Ejercicio 10 (3/12).
 + Información horaria del sistema
+    + Ejercicio 11 , Ejercicio 12 , Ejercicio 13 , Ejercicio 14 y Ejercicio 15 (6/12).
