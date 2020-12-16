@@ -1,0 +1,10 @@
+~/Escritorio$ ls -ld
+drwxr-xr-x 3 alvaro alvaro 4096 dic 16 10:08 .
+
+d :     tipo directorio.
+
+rwx :   permisos del propietario.
+
+r-x :   permisos del grupo.
+
+r-x :   permisos de otros.

@@ -1,0 +1,2 @@
+$chmod u+rw-x,g+r-wx,o+rx-w file_prueba
+$chmod 645 file_prueba

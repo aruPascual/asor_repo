@@ -1,0 +1,5 @@
+$ mkdir dir_prueba
+$ chmod -x dir_prueba/
+$ cd dir_prueba/
+
+bash: cd: dir_prueba/: Permiso denegado
