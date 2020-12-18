@@ -1,0 +1,15 @@
+$ ls -li
+total 4
+50466879 drw-rw-r-- 2 alvaro alvaro 4096 dic 16 10:08 dir_prueba
+50467112 -rw-rw-r-- 1 alvaro alvaro    0 dic 16 10:08 file_prueba
+
+$ man stat
+$ stat file_prueba 
+  Fichero: file_prueba
+  Tamaño: 0         	Bloques: 0          Bloque E/S: 4096   fichero regular vacío
+Dispositivo: 802h/2050d	Nodo-i: 50467112    Enlaces: 1
+Acceso: (0664/-rw-rw-r--)  Uid: ( 1000/  alvaro)   Gid: ( 1000/  alvaro)
+Acceso: 2020-12-16 10:08:56.217289555 +0100
+Modificación: 2020-12-16 10:08:56.217289555 +0100
+      Cambio: 2020-12-16 10:08:56.217289555 +0100
+    Creación: -
