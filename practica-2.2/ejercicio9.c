@@ -10,7 +10,6 @@
 #include <sys/sysmacros.h>
 #include <time.h>
 
-/*int stat(const char *pathname, struct stat *statbuf);*/
 int main(int argc, char **argv)
 {
     struct stat inode;

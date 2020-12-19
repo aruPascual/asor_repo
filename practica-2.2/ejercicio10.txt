@@ -1,0 +1,23 @@
+$ ln -s file_prueba sym_file
+$ ln -s dir_prueba sym_dir
+$ ls -li
+total 4
+50466879 drw-rw-r-- 2 alvaro alvaro 4096 dic 16 10:08 dir_prueba
+50467112 -rw-rw-r-- 1 alvaro alvaro    0 dic 16 10:08 file_prueba
+50465636 lrwxrwxrwx 1 alvaro alvaro   10 dic 19 10:51 sym_dir -> dir_prueba
+50462876 lrwxrwxrwx 1 alvaro alvaro   11 dic 19 10:51 sym_file -> file_prueba
+
+$ touch file_prueba2
+$ mkdir dir_prueba2
+$ ln file_prueba2 hard_file
+$ ln dir_prueba2 hard_dir
+ln: dir_prueba2: no se permiten enlaces fuertes para directorios
+$ ls -li
+total 8
+50465641 drwxrwxr-x 2 alvaro alvaro 4096 dic 19 10:52 dir_prueba2
+50465639 -rw-rw-r-- 2 alvaro alvaro    0 dic 19 10:52 file_prueba2
+50465639 -rw-rw-r-- 2 alvaro alvaro    0 dic 19 10:52 hard_file
+
+$ rm -fr file_prueba
+
+50462876 lrwxrwxrwx 1 alvaro alvaro   11 dic 19 10:51 sym_file -> file_prueba // se corrompe
