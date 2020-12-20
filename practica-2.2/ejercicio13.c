@@ -22,11 +22,23 @@ int main(int argc, char **argv)
         printf("Error while creating or opening the file\n");
         return -1;
     }
+    
     int fd_dup = dup2(fd, 1);
-    printf("Redirected to %s\n", argv[1]);
-    dup2(fd_dup, fd);
+    int fd_dup_err = dup2(fd, 2);
 
+    printf("Redirected to %s\n", argv[1]);
+    char *s;
+    if (setuid(0) == -1)
+    {
+        perror(s);
+    }
+
+    dup2(fd_dup, fd);
+    dup2(fd_dup_err, fd);
+    
     close(fd);
+    close(fd_dup);
+    close(fd_dup_err);
 
     return 0;
 }

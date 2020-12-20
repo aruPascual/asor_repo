@@ -1,0 +1,19 @@
+$ cat /proc/locks
+1: POSIX  ADVISORY  WRITE 3135 08:02:51906766 0 EOF
+2: FLOCK  ADVISORY  WRITE 992 00:1b:6 0 EOF
+3: FLOCK  ADVISORY  WRITE 746 00:19:931 0 EOF
+4: POSIX  ADVISORY  READ 1455 08:02:50462833 128 128
+5: POSIX  ADVISORY  READ 1455 08:02:50462829 1073741826 1073742335
+6: POSIX  ADVISORY  READ 3349 08:02:51906145 128 128
+7: POSIX  ADVISORY  READ 3349 08:02:51905934 1073741826 1073742335
+8: POSIX  ADVISORY  WRITE 786 00:19:976 0 EOF
+9: FLOCK  ADVISORY  WRITE 2641 00:38:61 0 EOF
+
+Columnas:
+1- id del bloqueo.
+2- tipo de bloqueo, dependiendo de la llamada utilizada (flock o lockf).
+3- modo de bloqueo, permitiendo el acceso a los datos o no.
+4- bloqueos de escritura o escritura.
+5- PID del proceso que tiene el bloqueo.
+6- fichero bloqueado.
+7-8- inicio y final del bloqueo.

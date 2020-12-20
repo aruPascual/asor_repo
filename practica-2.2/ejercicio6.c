@@ -20,5 +20,7 @@ int main()
         printf("File opened succesfully using the mask");
     }
 
+    close(fd);
+
     return 0;
 }

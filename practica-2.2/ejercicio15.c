@@ -7,6 +7,7 @@
 #include <unistd.h>
 #include <sys/sysmacros.h>
 #include <string.h>
+#include <time.h>
 
 int main(int argc, char **argv)
 {
@@ -22,9 +23,28 @@ int main(int argc, char **argv)
         printf("Error while creating or opening the file\n");
         return -1;
     }
-    int fd_dup = dup2(fd, 1);
-    printf("Redirected to %s\n", argv[1]);
-    dup2(fd_dup, fd);
+
+    if (lockf(fd, F_LOCK, 0) == -1)
+    {
+        close(fd);
+        printf("Locked file\n");
+        return -1;
+    }
+    else
+    {
+        time_t curtime;
+
+        time(&curtime);
+        printf("Current time = %s", ctime(&curtime));
+        sleep(30);
+
+        if (lockf(fd, F_ULOCK, 0) == -1)
+        {
+            close(fd);
+            printf("ERROR AT UNLOCKING\n");
+            return -1;
+        }
+    }
 
     close(fd);
 

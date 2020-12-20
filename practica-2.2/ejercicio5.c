@@ -21,5 +21,7 @@ int main()
         printf("File descriptor %i has been opened\n", fd);
     }
 
+    close(fd);
+
     return 0;
 }
