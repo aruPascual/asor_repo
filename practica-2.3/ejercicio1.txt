@@ -1,0 +1,7 @@
+$ sudo renice -n -10 -p 3960
+3960 (process ID) prioridad anterior 0, nueva prioridad -10
+
+$ sudo chrt -f -p 12 3960
+$ chrt -p 3960
+política actual de planificación del pid 3960: SCHED_FIFO
+política actual de planificación del pid 3960: 12

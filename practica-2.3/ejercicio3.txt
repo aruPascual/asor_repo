@@ -1,0 +1,11 @@
+$ ./ejercicio2 3555
+Scheduler: OTHER
+Priority: 0
+MAX: 0 - MIN: 0
+
+//////
+
+$ ./ejercicio2 3960
+Scheduler: FIFO
+Priority: 12
+MAX: 99 - MIN: 1
