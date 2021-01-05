@@ -1,0 +1,10 @@
+$ ps -f
+UID          PID    PPID  C STIME TTY          TIME CMD
+alvaro      3444    3436  0 12:47 pts/1    00:00:00 bash
+alvaro      3566    3444  0 12:52 pts/1    00:00:00 ps -f
+
+
+$ ps -eo pid,gid,sid,s,comm
+
+
+El PID de la shell será heredado por los procesos que en ella se ejecuten como SID.
