@@ -1,0 +1,2 @@
+SIGKILL interrumpe sleep
+SIGINT interrumpe sleep

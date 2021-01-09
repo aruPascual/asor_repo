@@ -13,3 +13,5 @@ En esta práctica se revisan las funciones del sistema básicas para ¡
 + Ejecución de programas.
     + Ejercicio 7 y Ejercicio 8 (5/1).
 + Señales.
+    + Ejercicio 9 , Ejercicio 10 , Ejercicio 11 y Ejercicio 12 (9/1).
+    + Ejercicio 13 (10/1).
