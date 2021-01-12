@@ -9,3 +9,5 @@ Prácticas realizadas:
 + ### Práctica 2.2: Sistemas de ficheros
 
 + ### Práctica 2.3: Procesos
+
++ ### Práctica 2.4: Tuberías

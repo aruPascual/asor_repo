@@ -2,7 +2,7 @@
 
 ## Objetivos
 
-En esta práctica se revisan las funciones del sistema básicas para ¡
+En esta práctica se revisan las funciones del sistema básicas para la gestión de procesos: políticas de planificación, creación de procesos, grupos de procesos, sesiones, recursos de un proceso y gestión de señales.
 
 ## Contenidos
 

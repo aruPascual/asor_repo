@@ -1,0 +1,28 @@
+$ mkfifo tube
+$ ls -l
+    total 40
+    drwxr-xr-x 2 alvaro alvaro 4096 ene  4 22:25 Descargas
+    drwxr-xr-x 3 alvaro alvaro 4096 dic  1 19:26 Documentos
+    drwxrwxr-x 4 alvaro alvaro 4096 nov 21 17:00 eclipse-workspace
+    drwxr-xr-x 3 alvaro alvaro 4096 dic 21 16:18 Escritorio
+    drwxr-xr-x 2 alvaro alvaro 4096 oct 10 13:31 Imágenes
+    drwxr-xr-x 2 alvaro alvaro 4096 oct 10 13:31 Música
+    drwxr-xr-x 2 alvaro alvaro 4096 oct 10 13:31 Plantillas
+    drwxr-xr-x 2 alvaro alvaro 4096 oct 10 13:31 Público
+    drwxr-xr-x 7 alvaro alvaro 4096 ene 12 01:04 snap
+    prw-rw-r-- 1 alvaro alvaro    0 ene 12 13:55 tube
+    drwxr-xr-x 2 alvaro alvaro 4096 oct 10 13:31 Vídeos
+$ stat tube
+    Fichero: tube
+    Tamaño: 0         	Bloques: 0          Bloque E/S: 4096   `fifo'
+    Dispositivo: 802h/2050d	Nodo-i: 50070801    Enlaces: 1
+    Acceso: (0664/prw-rw-r--)  Uid: ( 1000/  alvaro)   Gid: ( 1000/  alvaro)
+    Acceso: 2021-01-12 13:55:38.319329701 +0100
+    Modificación: 2021-01-12 13:55:38.319329701 +0100
+        Cambio: 2021-01-12 13:55:38.319329701 +0100
+        Creación: -
+$ echo "cosas" > tube
+
+------
+
+$ cat tube
