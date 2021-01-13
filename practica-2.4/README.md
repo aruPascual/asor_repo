@@ -10,4 +10,6 @@ Las tuberías ofrecen un mecanismo sencillo y efectivo para la comunicación ent
     + Ejercicio 1 y Ejercicio 2 (12/1).
 + Tuberías con nombre.
     + Ejercicio 3 (12/1).
+    + Ejercicio 4 (13/1).
 + Multiplexación síncrona de entrada/salida.
+    + Ejercicio 5 (13/1).
