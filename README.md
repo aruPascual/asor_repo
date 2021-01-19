@@ -11,3 +11,5 @@ Prácticas realizadas:
 + ### Práctica 2.3: Procesos
 
 + ### Práctica 2.4: Tuberías
+
++ ### Práctica 2.5: Sockets
