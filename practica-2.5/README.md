@@ -1,4 +1,4 @@
-/# Práctica 2.5: Sockets
+# Práctica 2.5: Sockets
 
 ## Objetivos
 
@@ -9,4 +9,5 @@ En esta práctica, nos familiarizaremos con la interfaz de programación de sock
 + Gestión de direcciones
     + Ejercicio 1 (19/1).
 + Protocolo UDP - Servidor de hora
+    + Ejercicio 2 , Ejercicio 3 y Ejercicio 4 (19/1).
 + Protocolo TCP - Servidor de eco
