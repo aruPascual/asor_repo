@@ -11,3 +11,4 @@ En esta práctica, nos familiarizaremos con la interfaz de programación de sock
 + Protocolo UDP - Servidor de hora
     + Ejercicio 2 , Ejercicio 3 y Ejercicio 4 (19/1).
 + Protocolo TCP - Servidor de eco
+    + Ejercicio 6 , Ejercicio 7 , Ejercicio 8 y Ejercicio 9 (19/1).
