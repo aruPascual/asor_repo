@@ -1,0 +1,36 @@
+// VM1: 
+$ sudo ip l set dev eth0 up
+$ sudo ip a a 192.168.0.1/24 dev eth0
+
+// VM2:
+$ sudo ip l set dev eth0 up
+$ sudo ip a a 172.16.0.2/16 dev eth0
+
+// VM3 - Router:
+$ sudo ip l set dev eth0 up
+$ sudo ip l set dev eth1 up
+$ sudo ip a a 192.168.0.3/24 dev eth0
+$ sudo ip a a 172.16.0.3/16 dev eth1
+
+/*---------*/
+
+// VM1: 
+$ sudo ip route add default via 192.168.0.3
+
+// VM2:
+$ sudo ip route add default via 172.16.0.3
+
+// VM3 - Router:
+$ sudo sysctl net.ipv4.ip_forward=1
+
+/*---------*/
+
+// VM3 - Router:
+$ sudo iptables -t nat -A POSTROUTING -o eth1 -j MASQUERADE
+$ sudo iptables -t nat -A PREROUTING -d 172.16.0.3 -p tcp --dport 80 -j DNAT --to 192.168.0.1:8080 /* any port */
+
+// VM1: 
+$ nc -l -p 8080 /* any port */
+
+// VM2:
+$ nc 172.16.0.3 80 /* --dport */
