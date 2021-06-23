@@ -1,0 +1,49 @@
+// VM1:
+$ sudo ip l set dev eth0 up
+$ sudo ip a a 192.168.0.1/24 dev eth0
+
+// VM2:
+$ sudo ip l set dev eth0 up
+$ sudo ip a a 192.168.0.2/24 dev eth0
+
+/*-------------------*/
+
+// VM1:
+$ sudo nano /etc/named.conf
+&
+    zone "examen.es." {
+    type master;
+    file "db.examen.es";
+    };
+
+$ sudo nano /var/named/db.examen.es
+&
+    $TTL	2d
+    examen.es.	          	IN      SOA     ns.examen.es. contact.examen.es. 	(
+                                                    2030400 ; Serial
+                                                    2h      ; Refresh
+                                                    15M     ; Update query
+                                                    3W12h   ; Expire
+                                                    2h30M   ;
+                                                    )
+                                    IN	NS      ns.examen.es.
+    ns.examen.es.	          	IN	A       192.168.0.1
+    www.examen.es.	          	IN	A       192.168.0.200
+                                    IN      MX 10   mail.examen.es.
+    servidor.examen.es.     86400	IN      CNAME	mail.examen.es.
+    mail.examen.es.         86400	IN	A	192.168.0.250
+
+$ sudo named-checkzone examen.es /var/named/db.examen.es
+(
+    zone examen.es/IN: loaded serial 2030400
+    OK
+)
+
+$ sudo service named start
+
+// VM2:
+$ sudo nano /etc/resolv.conf
+&
+    domain ns.examen.es
+    search ns.examen.es
+    nameserver 192.168.0.1
