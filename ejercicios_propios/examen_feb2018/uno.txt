@@ -1,0 +1,39 @@
+// VM1:
+$ sudo ip l set dev eth0 up
+$ sudo ip a a 192.168.0.129/25 dev eth0
+
+// VM2 - Router:
+$ sudo ip l set dev eth0 up
+$ sudo ip l set dev eth1 up
+$ sudo ip a a 192.168.0.130/25 dev eth0
+$ sudo ip a a 10.0.0.2/24 dev eth1
+
+// VM3 - Router:
+$ sudo ip l set dev eth0 up
+$ sudo ip l set dev eth1 up
+$ sudo ip a a 10.0.0.3/24 dev eth0
+$ sudo ip a a 172.16.0.3/24 dev eth1
+
+/*--------------*/
+
+// VM2 - Router:
+$ sudo sysctl net.ipv4.ip_forward=1
+$ sudo nano /etc/quagga/ripd.conf
+&
+    router rip
+     version 2
+     network eth0
+     network eth1
+
+$ sudo service ripd start
+
+// VM3 - Router:
+$ sudo sysctl net.ipv4.ip_forward=1
+$ sudo nano /etc/quagga/ripd.conf
+&
+    router rip
+     version 2
+     network eth0
+     network eth1
+
+$ sudo service ripd start
