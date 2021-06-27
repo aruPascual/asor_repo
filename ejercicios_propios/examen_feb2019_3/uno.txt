@@ -1,0 +1,25 @@
+// VM1: 
+$ sudo ip link set eth0 up
+$ sudo ip a a fd00:0:0:a::1/64 dev eth0     /* ?? ...ip -6 a a... ??  */
+
+// VM2:
+$ sudo ip link set eth0 up
+$ sudo ip a a fd00:0:0:b::2/64 dev eth0     /* ?? ...ip -6 a a... ??  */
+
+// VM3 - Router:
+$ sudo ip link set eth0 up
+$ sudo ip link set eth1 up
+$ sudo ip a a fd00:0:0:a::3/64 dev eth0     /* ?? ...ip -6 a a... ??  */
+$ sudo ip a a fd00:0:0:b::3/64 dev eth0     /* ?? ...ip -6 a a... ??  */
+
+
+/*---------*/
+
+// VM3 - Router:
+$ sudo sysctl -w net.ipv6.conf.all.forwarding=1
+
+// VM1:
+$ sudo ip -6 route add default via fd00:0:0:a::3
+
+// VM2:
+$ sudo ip -6 route add default via fd00:0:0:b::3       /* ???? */
