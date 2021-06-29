@@ -6,15 +6,16 @@
 #include <sys/socket.h>
 #include <netdb.h>
 #include <errno.h>
+#include <sys/select.h>
 #include <time.h>
-#include <sys/wait.h>
+#include <sys/time.h>
 
 #define BUF_SIZE 500
 
 int main(int argc, char **argv)
 {
     struct addrinfo hints;
-    struct addrinfo *result;
+    struct addrinfo *result, *rp;
     int sfd, s;
     struct sockaddr_storage peer_addr;
     socklen_t peer_addr_len;
@@ -23,7 +24,7 @@ int main(int argc, char **argv)
 
     if (argc != 3)
     {
-        fprintf(stderr, "Usage: %s host port\n", argv[0]);
+        fprintf(stderr, "Usage: %s <host> <port>\n", argv[0]);
         exit(EXIT_FAILURE);
     }
 
@@ -39,7 +40,7 @@ int main(int argc, char **argv)
     s = getaddrinfo(argv[1], argv[2], &hints, &result);
     if (s != 0)
     {
-        fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(s));
+        fprintf(stderr, "ERROR getaddrinfo: %s\n", gai_strerror(s));
         exit(EXIT_FAILURE);
     }
 
@@ -57,61 +58,75 @@ int main(int argc, char **argv)
     }
 
     freeaddrinfo(result); /* No longer needed */
-
     peer_addr_len = sizeof(peer_addr);
+    fd_set set;
 
-    pid_t pid = getpid();
-
-    while (pid)
+    while (strcmp(buf, "q\0"))
     {
-        pid = fork();
-        if (pid == -1)
+        FD_ZERO(&set);
+        FD_SET(0, &set);
+        FD_SET(sfd, &set);
+
+        if (-1 == select(sfd + 1, &set, NULL, NULL, NULL))
         {
-            perror("ERROR fork");
+            perror("ERROR selecting sfd");
             exit(EXIT_FAILURE);
         }
-        else if (pid == 0)
+
+        if (FD_ISSET(sfd, &set))
         {
-            nread = recvfrom(sfd, buf, BUF_SIZE * sizeof(char), 0, (struct sockaddr *)&peer_addr, &peer_addr_len);
-            if (nread == -1)
-            {
-                perror("ERROR recvfrom");
-                exit(EXIT_FAILURE);
-            }
-            else if (nread == 0)
-            {
-                printf("Abandono conexion\n");
-                exit(EXIT_SUCCESS);
-            }
-            else
+            nread = recvfrom(sfd, &buf, BUF_SIZE * sizeof(char), 0, (struct sockaddr *)&peer_addr, &peer_addr_len);
+        }
+        else if (FD_ISSET(0, &set))
+        {
+            nread = read(0, &buf, BUF_SIZE * sizeof(char));
+        }
+
+        if (nread == -1)
+        {
+            perror("ERROR recieving data");
+            close(sfd);
+            exit(EXIT_FAILURE);
+        }
+        else if (nread == 0)
+        {
+            printf("Connection ended...\n");
+            buf[0] = 'q';
+        }
+        else
+        {
+            if (FD_ISSET(sfd, &set))
             {
                 char host[NI_MAXHOST], service[NI_MAXSERV];
-                s = getnameinfo((struct sockaddr *)&peer_addr, peer_addr_len, host, NI_MAXHOST, service, NI_MAXSERV, NI_NUMERICSERV);
-                if (s == 0)
-                    printf("Received %zd bytes from %s:%s\n", nread, host, service);
-                else
+
+                if (getnameinfo((struct sockaddr *)&peer_addr, peer_addr_len, host, NI_MAXHOST, service, NI_MAXSERV, NI_NUMERICSERV))
                 {
                     fprintf(stderr, "getnameinfo: %s\n", gai_strerror(s));
                     exit(EXIT_FAILURE);
                 }
 
-                time_t t = time(NULL);
-                struct tm *loctime = localtime(&t);
-                ssize_t ntime = strftime(buf, BUF_SIZE, "%H:%M:%S %p", loctime);
-                buf[ntime] = '\0';
+                printf("Received %ld bytes from %s:%s\n", (long)nread, host, service);
+            }
 
-                ssize_t nwrite = sendto(sfd, buf, (ntime + 1) * sizeof(char), 0, (struct sockaddr *)&peer_addr, peer_addr_len);
+            time_t t = time(NULL);
+            struct tm *locTime = localtime(&t);
+            ssize_t ntime = strftime(buf, BUF_SIZE * sizeof(char), "%H:%M:%S", locTime);
+            buf[ntime] = '\0';
+
+            if (FD_ISSET(sfd, &set))
+            {
+                ssize_t nwrite = sendto(sfd, buf, nread, strlen(buf), (struct sockaddr *)&peer_addr, peer_addr_len);
                 if (nwrite == -1)
                 {
-                    fprintf(stderr, "Error sending response\n");
+                    perror("ERROR sendto");
                     exit(EXIT_FAILURE);
                 }
             }
-        }
-        else
-        {
-            int espera;
-            waitpid(pid, &espera, 0);
+            else if (FD_ISSET(0, &set))
+            {
+                printf("Connection established from terminal\n");
+                printf("Current time:\t%s\n", buf);
+            }
         }
     }
 
